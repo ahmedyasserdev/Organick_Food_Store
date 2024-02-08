@@ -10,7 +10,7 @@ const NavItems = () => {
         {headerLinks.map((link) => {
             const isActive = pathname === link.route;
            return(
-            <li key = {link.route} className={`${isActive && "text-primary"} flex-center p-medium-16 whitespace-nowrap `} >
+            <li key = {link.route} className={`${isActive && "text-dark-green"} hover:bg-dark-green transition-colors duration-150 flex-center p-medium-16 whitespace-nowrap `} >
                 <Link href = {link.route}>{link.label}</Link>
             </li>
            )

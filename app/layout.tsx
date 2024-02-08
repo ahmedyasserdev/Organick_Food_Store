@@ -11,7 +11,7 @@ const roboto = Roboto({
 export const metadata: Metadata = {
   title: "Organick",
   description: "Organick is a food store.",
-  keywords: ["Food Store", "Organick", "fruits", "vegetables"  , "nuts" , "organic" ,  ],
+  keywords: ["Food Store", "Organick", "fruits", "vegetables"  , "nuts" , "organic" , 'organick'  ],
 
 }
 
