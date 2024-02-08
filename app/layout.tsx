@@ -9,8 +9,8 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Evenlty",
-  description: "Evently is a platform  for event management.",
+  title: "Organick",
+  description: "Organick is a food store.",
   keywords: ["Food Store", "Organick", "fruits", "vegetables"  , "nuts" , "organic" ,  ],
 
 }

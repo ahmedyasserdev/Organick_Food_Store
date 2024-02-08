@@ -19,4 +19,6 @@ export const headerLinks = [
     imageUrl: '',
     categoryId: '',
     price: '',
+    discount: '',
+    
   }

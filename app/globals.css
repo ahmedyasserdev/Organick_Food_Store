@@ -204,15 +204,15 @@
 
 
   .select-field {
-    @apply w-full bg-light-gray h-[54px] placeholder:text-dark-gray rounded-full p-regular-16 px-5 py-3 border-none focus-visible:ring-transparent focus:ring-transparent !important;
+    @apply w-full  shadow-md hover:shadow-sm  h-[54px] placeholder:text-dark-gray rounded-full p-regular-16 px-5 py-3 border-none focus-visible:ring-transparent focus:ring-transparent transition-all duration-150  !important;
   }
 
   .input-field {
-    @apply bg-light-gray h-[54px] focus-visible:ring-offset-0 placeholder:text-dark-gray rounded-full p-regular-16 px-4 py-3 border-none focus-visible:ring-transparent !important;
+    @apply  shadow-md  hover:shadow-sm h-[54px] focus-visible:ring-offset-0 placeholder:text-dark-gray rounded-full p-regular-16 px-4 py-3 border-none focus-visible:ring-transparent  transition-all  duration-150 !important;
   }
 
   .textarea {
-    @apply bg-light-gray flex flex-1 placeholder:text-dark-gray p-regular-16 px-5 py-3 border-none focus-visible:ring-transparent !important;
+    @apply  shadow-md   hover:shadow-sm flex flex-1 placeholder:text-dark-gray p-regular-16 px-5 py-3 border-none focus-visible:ring-transparent  transition-all  duration-150  !important;
   }
 
 
@@ -241,12 +241,13 @@
   font-weight: bold;
   letter-spacing: 1.3px;
   background-color: #274C5B;
+  font-size: 20px;
 }
 
 .cl-formButtonPrimary:hover,
 .cl-formButtonPrimary:focus,
 .cl-formButtonPrimary:active {
-  opacity: 0.7;
+  opacity: 0.9;
 }
 
 
