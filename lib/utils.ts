@@ -9,23 +9,23 @@ export function cn(...inputs: ClassValue[]) {
 export const convertFileToUrl = (file: File) => URL.createObjectURL(file)
 
 // created by chatgpt
-function calculateFinalPrice(price : string, discount : string ) {
+export function calculateFinalPrice(price: string, discount: string = "0") {
   // Parse the price and discount strings into numbers
   const priceValue = parseFloat(price);
   const discountValue = parseFloat(discount);
 
-  // Check if the parsed values are valid numbers
-  if (isNaN(priceValue) || isNaN(discountValue)) {
-      throw new Error('Invalid price or discount value.');
+  // Check if the parsed price value is a valid number
+  if (isNaN(priceValue)) {
+    throw new Error('Invalid price value.');
   }
 
-  // Check if the discount is valid (between 0 and 100)
-  if (discountValue < 0 || discountValue > 100) {
-      throw new Error('Discount percentage must be between 0 and 100.');
+  // Check if the discount is valid (greater than or equal to 0)
+  if (discountValue < 0) {
+    throw new Error('Discount must be a non-negative number.');
   }
 
-  // Calculate the discount amount
-  const discountAmount = (priceValue * discountValue) / 100;
+  // Calculate the discount percentage
+  const discountAmount = discountValue * priceValue / 100;
 
   // Calculate the final price after applying the discount
   const finalPrice = priceValue - discountAmount;
@@ -33,6 +33,7 @@ function calculateFinalPrice(price : string, discount : string ) {
   // Round the final price to two decimal places (optional)
   return Math.round(finalPrice * 100) / 100;
 }
+
 
 
 export const handleError = (error: unknown) => {

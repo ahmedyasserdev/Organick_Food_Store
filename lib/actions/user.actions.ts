@@ -3,6 +3,7 @@ import User from '../database/models/user.model';
 import { handleError } from '../utils';
 import { connectToDatabase } from './../database/mongoose';
 import { revalidatePath } from 'next/cache';
+import { AddProductToCartProps } from '@/types'
 export const createOrUpdateUser = async (
   id : string ,
   first_name : string ,
@@ -65,3 +66,35 @@ export async function deleteUser(clerkId: string | undefined ) {
         handleError(error)
     }
   }
+
+
+
+  export const AddProductToCart = async ({ userId, product }: AddProductToCartProps) => {
+    try {
+        await connectToDatabase();
+
+        const user = await User.findById(userId);
+
+
+        // Parse quantity as a number
+        // const quantityToAdd = parseInt(product.quantity, 10) || 1;
+
+        // Find existing product in the cart
+        const existingProduct = user.cart.find((cartItem: any) => cartItem.product && cartItem.product._id.equals(product._id));
+
+        if (existingProduct) {
+            // If the product exists in the cart, update its quantity
+            existingProduct.quantity += product.quantity;
+        } else {
+            // If the product doesn't exist, add it to the cart
+            user.cart.push({ product, quantity: product.quantity });
+        }
+
+        // Save the updated user document
+        await user.save();
+
+    } catch (error) {
+        console.error("Error adding product to cart:", error);
+        throw error; // Rethrow the error for better handling
+    }
+};

@@ -16,28 +16,37 @@ const populateProduct = (query: any) => {
   }
 
 
-export const createNewProduct = async ({
-  product,
-  userId,
-}: CreateNewProductProps) => {
-  try {
-    await connectToDatabase();
 
-    const creator = await User.findById(userId);
-    if (!creator) throw new Error("Creator not found");
+  
+  export const createNewProduct = async ({
+    product,
+    userId,
+  }: CreateNewProductProps) => {
+    try {
+      await connectToDatabase();
+  
+      const creator = await User.findById(userId);
+      if (!creator) throw new Error("Creator not found");
+  
+      const newProduct = await Product.create({
+        ...product,
+        category: product.categoryId,
+        creator: userId,
+      });
+  
 
-    const newProduct = await Product.create({
-      ...product,
-      category: product.categoryId,
-      creator: userId,
-    });
-
-    return JSON.parse(JSON.stringify(newProduct));
-  } catch (error: any) {
-    handleError(error);
-  }
-};
-
+      await User.findByIdAndUpdate(
+        userId,
+        { $push: { sellingProducts: newProduct} },
+        { new: true }
+      );
+  
+      return JSON.parse(JSON.stringify(newProduct));
+    } catch (error: any) {
+      handleError(error);
+    }
+  };
+  
 export const getProductById = async (id : string ) => {
     try {
         await connectToDatabase()

@@ -209,5 +209,3 @@ function ProductForm({type , product ,   userId } : ProductFormProps ) {
 export default ProductForm
 
 
-// $20.00
-// $13.00
