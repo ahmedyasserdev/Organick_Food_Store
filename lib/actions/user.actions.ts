@@ -89,7 +89,6 @@ export async function deleteUser(clerkId: string | undefined ) {
             user.cart.push({ product, quantity: product.quantity });
         }
 
-        // Save the updated user document
           revalidatePath(path)
 
         await user.save();

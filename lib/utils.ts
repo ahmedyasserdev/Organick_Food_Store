@@ -24,16 +24,19 @@ export function calculateFinalPrice(price: string, discount: string = "0") {
     throw new Error('Discount must be a non-negative number.');
   }
 
-  // Calculate the discount percentage
-  const discountAmount = discountValue * priceValue / 100;
-
-  // Calculate the final price after applying the discount
-  const finalPrice = priceValue - discountAmount;
-
-  // Round the final price to two decimal places (optional)
-  return Math.round(finalPrice * 100) / 100;
+  // If there is a discount, calculate the final price after applying the discount
+  if (discountValue > 0) {
+    // Calculate the discount percentage
+    const discountAmount = discountValue * priceValue / 100;
+    // Calculate the final price after applying the discount
+    const finalPrice = priceValue - discountAmount;
+    // Round the final price to two decimal places (optional)
+    return Math.round(finalPrice * 100) / 100;
+  } else {
+    // If there is no discount, return the original price
+    return priceValue;
+  }
 }
-
 
 
 export const handleError = (error: unknown) => {
