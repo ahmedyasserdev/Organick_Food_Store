@@ -5,9 +5,8 @@ import User from "../database/models/user.model";
 import { connectToDatabase } from "../database/mongoose";
 import { handleError } from "../utils";
 import { CreateNewProductProps } from "@/types";
-import { getUser } from "./user.actions";
 import Category from "../database/models/category.model";
-
+import {revalidatePath} from "next/cache"
 
 const populateProduct = (query: any) => {
     return query
@@ -58,4 +57,62 @@ export const getProductById = async (id : string ) => {
     } catch (error: any) {
         handleError(error);
       }
+};
+
+
+
+export const getCartProducts = async (id: string | undefined) => {
+  try {
+    await connectToDatabase();
+
+    const userCart = await User.findOne({ clerkId: id }).populate({
+      path: "cart",
+      populate: {
+        path: "product",
+        model : Product ,
+        populate: [
+          {
+            path: "creator",
+            model: User, 
+            select: "_id firstName lastName",
+          },
+          {
+            path: "category",
+            model: Category,
+            select: "_id name",
+          },
+        ],
+      },
+    })
+
+    if (!userCart || !userCart.cart || userCart.cart.length === 0) {
+      console.log("User cart is empty or not found");
+      return null; // or throw an error
+    }
+
+
+
+    
+
+    return userCart.cart;
+  } catch (error) {
+    console.error("Error fetching user cart:", error);
+    throw error;
+  }
+};
+
+
+
+
+export const removeProductFromCart = async (userId: string | undefined, productId: string) => {
+  try {
+    await connectToDatabase();
+    const user = await User.findOne({ clerkId: userId });
+
+    user.cart = user.cart.filter((product: any) => product._id.toString() !== productId.toString());
+    revalidatePath('/cart')
+    await user.save();
+  } catch (error: any) {
+    handleError(error);
+  }
 };

@@ -6,8 +6,12 @@ import NavItems from "./NavItems";
 import MobileNav from "./MobileNav";
 import Logo from "./Logo";
 import { ShoppingCart } from "lucide-react";
-
-const Header = () => {
+import {  currentUser } from "@clerk/nextjs"
+import { getUser } from "@/lib/actions/user.actions"
+const Header = async() => {
+  const user= await currentUser()
+  const userInfo = await getUser(user?.id)
+  const cart = userInfo.cart.length
   return (
     <header className="w-full py-3">
       <div className="container flex-between">
@@ -16,7 +20,7 @@ const Header = () => {
         </Link>
 
         <SignedIn>
-          <nav className="hidden w-full md:flex-between max-w-xs">
+          <nav className="hidden  md:flex gap-10 items-center ">
             <NavItems />
           </nav>
         </SignedIn>
@@ -26,7 +30,7 @@ const Header = () => {
             <Link href="/cart">
               <div className=" relative flex gap-4 items-center border-2 border-primary rounded-full  p-2 mx-5 ">
                 <ShoppingCart className="w-6 h-6 object-contain " />
-                <p className=" absolute right-[-10px] top-[-10px] bg-primary rounded-full text-white py-1 px-2">0</p>
+                <p className=" absolute right-[-10px] top-[-10px] bg-primary rounded-full text-white py-1 px-2">{cart}</p>
               </div>
             </Link>
             <UserButton afterSignOutUrl="/" />

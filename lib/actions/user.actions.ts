@@ -69,15 +69,14 @@ export async function deleteUser(clerkId: string | undefined ) {
 
 
 
-  export const AddProductToCart = async ({ userId, product }: AddProductToCartProps) => {
+  export const AddProductToCart = async ({ userId, product , path }: AddProductToCartProps) => {
     try {
         await connectToDatabase();
 
         const user = await User.findById(userId);
 
 
-        // Parse quantity as a number
-        // const quantityToAdd = parseInt(product.quantity, 10) || 1;
+      
 
         // Find existing product in the cart
         const existingProduct = user.cart.find((cartItem: any) => cartItem.product && cartItem.product._id.equals(product._id));
@@ -91,6 +90,8 @@ export async function deleteUser(clerkId: string | undefined ) {
         }
 
         // Save the updated user document
+          revalidatePath(path)
+
         await user.save();
 
     } catch (error) {

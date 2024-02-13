@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import  { Toaster } from 'react-hot-toast';
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from '@clerk/nextjs'
@@ -24,7 +25,19 @@ export default function RootLayout({
     <ClerkProvider>
 
     <html lang="en">
-      <body className={roboto.variable}>{children}</body>
+      <body className={roboto.variable}>
+      <Toaster  position="top-right"
+        toastOptions={{
+          // Define default options
+          duration: 2000,
+          style: {
+            background: '#EFF6F1',
+            color: '#000',
+          },
+
+        }}      
+/>
+        {children}</body>
     </html>
     </ClerkProvider>
   );

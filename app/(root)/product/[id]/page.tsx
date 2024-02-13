@@ -6,7 +6,6 @@ import AddToCart from "@/components/shared/AddToCart";
 const page = async ({ params: { id } }: { params: { id: string } }) => {
   const product = await getProductById(id);
   const finalPrice : number = calculateFinalPrice(product.price, product.discount);
-  console.log(product);
 
   return (
     <section className="">

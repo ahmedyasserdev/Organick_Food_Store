@@ -6,7 +6,7 @@ export type ProductFormProps = {
   product?: IProduct;
 };
 
-export type Product = {
+ type Product = {
   title: string;
   description: string;
   image: string;
@@ -28,6 +28,7 @@ export type AddToCartProps = {
 
 export type AddProductToCartProps = {
   userId: string | undefined;
+  path : string ;
   product: {
     title: string;
     description: string;
