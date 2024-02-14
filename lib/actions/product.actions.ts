@@ -116,3 +116,21 @@ export const removeProductFromCart = async (userId: string | undefined, productI
     handleError(error);
   }
 };
+
+
+
+export const cartCheckout = async (userId : string | undefined , path : string) => {
+  try {
+      await connectToDatabase()
+
+      const user = await User.findOne({ clerkId: userId });
+
+        user.cart = []
+
+          revalidatePath(path)
+        await user.save()
+
+  } catch (error: any) {
+    handleError(error);
+  }
+}
