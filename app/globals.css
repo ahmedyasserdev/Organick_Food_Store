@@ -64,10 +64,13 @@
   }
 }
 
+
+
 @layer base {
   body {
     @apply bg-light;
   }
+
 }
 
 @layer utilities {

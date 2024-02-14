@@ -1,0 +1,62 @@
+import { IProduct } from "@/lib/database/models/product.model";
+import { getUser } from "@/lib/actions/user.actions";
+import { currentUser } from "@clerk/nextjs";
+import Image from "next/image";
+import Link from "next/link";
+import { calculateFinalPrice } from "@/lib/utils";
+import DeleteConfirmation from "../shared/DeleteConfirmation";
+const ProductCard = async ({ product }: { product: IProduct }) => {
+  const user = await currentUser();
+  const userInfo = await getUser(user?.id);
+  const isCreator = userInfo?._id.toString() === product.creator._id.toString();
+  const finalPrice = calculateFinalPrice(product.price, product.discount);
+
+  return (
+    <div className="card">
+      <Link className="flex flex-col gap-5 " href={`/product/${product._id}`}>
+        <Image
+          src={product.image}
+          alt={product.title}
+          width={400}
+          height={100}
+          className=" mx-auto object-contain "
+        />
+
+        <div className="flex flex-col gap-4 text-primary px-2 pb-3">
+          <h5 className="h5-bold">{product.title}</h5>
+          <p className="p-regular-14 truncate max-w-md">
+            {product.description}
+          </p>
+
+          <div className="text-start md:flex-between flex flex-col md:flex-row max-md:gap-y-3 ">
+            <p className="text-primary p-bold-16">
+              Price : <span className="font-regular">${finalPrice} </span>
+            </p>
+
+            {
+                product.discount && (
+                    <p className="text-primary p-bold-16">
+                    discount :{" "}
+                    <span className="font-regular">{product.discount}% </span>
+                  </p>
+                )
+            }
+
+          </div>
+        </div>
+      </Link>
+
+      {isCreator && (
+        <div className="absolute right-2 top-2 flex flex-col gap-4 rounded-xl bg-light p-3 shadow-md transition-all">
+          <Link href={`/product/${product._id}/update`}>
+            <Image src="/edit.svg" alt="edit" width={20} height={20} />
+          </Link>
+
+          <DeleteConfirmation productId={product._id ?product._id : undefined } />
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ProductCard;

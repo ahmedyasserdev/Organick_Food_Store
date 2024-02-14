@@ -165,7 +165,7 @@ function ProductForm({type , product ,   userId } : ProductFormProps ) {
     name="discount"
     render={({ field }) => (
       <FormItem className="w-full">
-        <label htmlFor="discount" className="input-label">Discount (%)</label>
+        <label htmlFor="discount" className="input-label">Discount (%) optional </label>
         <FormControl>
           <Input
             id="discount"
@@ -195,7 +195,7 @@ function ProductForm({type , product ,   userId } : ProductFormProps ) {
 
 
 
-        <Button type="submit" className="rounded-full bg-dark-gray  p-bold-24 tracking-[1px]  w-full h-[54px]"  disabled={form.formState.isSubmitting}>
+        <Button type="submit" className="rounded-full   p-bold-24 tracking-[1px]  w-full h-[54px]"  disabled={form.formState.isSubmitting}>
         {form.formState.isSubmitting ? (
           type === "Create"  ? "Creating..." : 'Updating...'
           ): `${type} Product `}</Button>

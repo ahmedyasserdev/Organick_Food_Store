@@ -41,3 +41,9 @@ export type AddProductToCartProps = {
   } | any ; 
 
 };
+
+
+export type DeleteProductProps = {
+  productId: string;
+  path: string;
+};

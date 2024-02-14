@@ -14,7 +14,10 @@ const config = withUt({
     
     extend: {
       backgroundImage : {
-        shop_single : "url('/shop-single.svg')"
+        shop_single : "url('/shop-single.svg')",
+        hero_bg : "url('/hero-bg.svg')",
+        hero_image: "url('/hero-image.svg')",
+        fruits: "url('/fruits.svg')",
       },
       colors: {
         border: "hsl(var(--border))",
@@ -34,9 +37,8 @@ const config = withUt({
           green : "#7EB693",
           gray : "#525C60"
         },
-        yellow : "#EFD372",
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
+          DEFAULT : "#EFD372",
           foreground: "hsl(var(--secondary-foreground))",
         },
         destructive: {
