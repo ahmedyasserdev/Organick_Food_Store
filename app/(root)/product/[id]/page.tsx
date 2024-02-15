@@ -1,12 +1,13 @@
 import React from "react";
-import { getProductById } from "@/lib/actions/product.actions";
+import { getProductById, getRelatedProductsByCategory } from "@/lib/actions/product.actions";
 import Image from "next/image";
 import { calculateFinalPrice } from "@/lib/utils";
 import AddToCart from "@/components/shared/AddToCart";
 const page = async ({ params: { id } }: { params: { id: string } }) => {
   const product = await getProductById(id);
   const finalPrice : number = calculateFinalPrice(product.price, product.discount);
-
+  const relatedProducts=  await  getRelatedProductsByCategory({categoryId : product.category._id  , productId : product._id })
+  console.log(relatedProducts)
   return (
     <section className="">
       <div className="bg-shop_single bg-cover h-[400px] w-full bg-center  mt-4 bg-no-repeat flex-center  mb-8 md:mb-10" />

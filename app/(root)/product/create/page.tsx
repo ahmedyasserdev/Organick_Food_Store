@@ -11,7 +11,7 @@ const CreateProduct = async () => {
   return (
    <>
      <section className="bg-light bg-dotted-pattern bg-cover bg-center py-5 md:py-10" >
-         <h3 className="container h3-bold text-center sm:text-left">Create Product</h3>
+         <h3 className="container  text-primary h3-bold text-center sm:text-left">Create Product</h3>
      </section>
 
         <div className="container my-8">

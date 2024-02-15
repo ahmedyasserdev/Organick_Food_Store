@@ -11,6 +11,7 @@ const ProductCard = async ({ product }: { product: IProduct }) => {
   const isCreator = userInfo?._id.toString() === product.creator._id.toString();
   const finalPrice = calculateFinalPrice(product.price, product.discount);
 
+
   return (
     <div className="card">
       <Link className="flex flex-col gap-5 " href={`/product/${product._id}`}>
@@ -33,15 +34,12 @@ const ProductCard = async ({ product }: { product: IProduct }) => {
               Price : <span className="font-regular">${finalPrice} </span>
             </p>
 
-            {
-                product.discount && (
-                    <p className="text-primary p-bold-16">
-                    discount :{" "}
-                    <span className="font-regular">{product.discount}% </span>
-                  </p>
-                )
-            }
-
+            {product.discount && (
+              <p className="text-primary p-bold-16">
+                discount :{" "}
+                <span className="font-regular">{product.discount}% </span>
+              </p>
+            )}
           </div>
         </div>
       </Link>
@@ -52,9 +50,17 @@ const ProductCard = async ({ product }: { product: IProduct }) => {
             <Image src="/edit.svg" alt="edit" width={20} height={20} />
           </Link>
 
-          <DeleteConfirmation productId={product._id ?product._id : undefined } />
+          <DeleteConfirmation
+            productId={product._id ? product._id : undefined}
+          />
         </div>
       )}
+
+      <div className="absolute top-5 left-5 bg-primary p-4 rounded-xl z-10">
+        <p className="p-bold-16 text-white  leading-[1.6] capitalize">
+          {product.category.name}
+        </p>
+      </div>
     </div>
   );
 };

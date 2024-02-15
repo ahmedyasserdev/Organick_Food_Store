@@ -4,6 +4,7 @@ export type ProductFormProps = {
   userId: string | undefined;
   type: "Create" | "Update";
   product?: IProduct;
+  productId? : string  ;
 };
 
  type Product = {
@@ -15,10 +16,14 @@ export type ProductFormProps = {
   discount?: string;
 };
 
-export type CreateNewProductProps = {
+export type CreateNewAndUpdateProductParams = {
   userId: string | undefined;
   product: Product;
+  path? : string | undefined;
+  productId? : string | undefined ;
 };
+
+
 
 export type AddToCartProps = {
   product: IProduct;
@@ -47,3 +52,9 @@ export type DeleteProductProps = {
   productId: string;
   path: string;
 };
+
+
+export type GetRelatedProductsByCategoryParams = {
+  categoryId : string ;
+  productId : string ;
+}

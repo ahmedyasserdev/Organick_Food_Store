@@ -4,9 +4,14 @@ import Product from "../database/models/product.model";
 import User from "../database/models/user.model";
 import { connectToDatabase } from "../database/mongoose";
 import { handleError } from "../utils";
-import { CreateNewProductProps , DeleteProductProps } from "@/types";
+import {
+  CreateNewAndUpdateProductParams,
+  DeleteProductProps,
+  GetRelatedProductsByCategoryParams,
+} from "@/types";
 import Category from "../database/models/category.model";
 import { revalidatePath } from "next/cache";
+import toast from "react-hot-toast";
 
 const populateProduct = (query: any) => {
   return query
@@ -21,7 +26,7 @@ const populateProduct = (query: any) => {
 export const createNewProduct = async ({
   product,
   userId,
-}: CreateNewProductProps) => {
+}: CreateNewAndUpdateProductParams) => {
   try {
     await connectToDatabase();
 
@@ -137,9 +142,9 @@ export const getProducts = async (searchQuery?: string) => {
 
     if (searchQuery && searchQuery.trim() !== "") {
       const regex = new RegExp(searchQuery, "i");
-      products = await Product.find({ title: { $regex: regex } });
+      products = await populateProduct(Product.find({ title: { $regex: regex } }));
     } else {
-      products = await Product.find();
+      products = await populateProduct(Product.find());
     }
 
     return products;
@@ -147,8 +152,6 @@ export const getProducts = async (searchQuery?: string) => {
     handleError(error);
   }
 };
-
-
 
 export const deleteProduct = async ({
   productId,
@@ -159,9 +162,64 @@ export const deleteProduct = async ({
 
     const deletedProduct = await Product.findByIdAndDelete(productId);
 
-   if(deletedProduct)  revalidatePath(path)
-
+    if (deletedProduct) revalidatePath(path);
   } catch (error: any) {
+    handleError(error);
+  }
+};
+
+// UPDATE
+export const updateProduct = async ({
+  userId,
+  product,
+  productId,
+  path,
+}: CreateNewAndUpdateProductParams) => {
+  try {
+    await connectToDatabase();
+
+    const productToUpdate = await Product.findById(productId);
+
+    if (
+      !productToUpdate ||
+      productToUpdate.creator.toString() !== userId?.toString()
+    ) {
+      throw new Error("Unauthorized or product not found");
+    }
+
+    // Update the product with new values
+    const updatedProduct = await Product.findByIdAndUpdate(
+      productId,
+      { ...product, category: product.categoryId },
+      { new: true }
+    );
+
+    // Validate the path and revalidate if provided
+    if (path) {
+      revalidatePath(path);
+    }
+
+    return JSON.parse(JSON.stringify(updatedProduct));
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+export const getRelatedProductsByCategory = async ({
+  categoryId,
+  productId,
+}: GetRelatedProductsByCategoryParams) => {
+  try {
+    await connectToDatabase();
+
+    const conditions = {
+      $and: [{ category: categoryId }, { _id: { $ne: productId } }],
+    };
+
+    const Products = Product.find(conditions);
+
+    return Products;
+  } catch (error) {
     handleError(error);
   }
 };

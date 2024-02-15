@@ -5,7 +5,7 @@ import ProductCard from "../cards/ProductCard";
 const OurProducts = async () => {
 
   const products = await getProducts();
-  const slicedProducts = products;
+  const slicedProducts = products.slice(1,5) //slice it later;
 
   return (
     <section className="py-10">
@@ -16,9 +16,9 @@ const OurProducts = async () => {
         </div>
 
 
-            <div className="flex  max-md:justify-center flex-wrap items-center gap-4">
+            <div className="flex  max-md:justify-center flex-wrap items-center gap-5 pt-8  ">
                 {
-                    slicedProducts?.map((product) =>  (
+                    slicedProducts?.map((product  : any) =>  (
                         <ProductCard key={product._id } product={product} />
                     )  )
                 }

@@ -11,7 +11,7 @@ import { getUser } from "@/lib/actions/user.actions"
 const Header = async() => {
   const user= await currentUser()
   const userInfo = await getUser(user?.id)
-  const cart = userInfo.cart.length
+  const cart = userInfo?.cart?.length || 0
   return (
     <header className="w-full py-3">
       <div className="container flex-between">
