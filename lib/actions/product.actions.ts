@@ -135,23 +135,43 @@ export const cartCheckout = async (
   }
 };
 
+// created by chatgpt
 export const getProducts = async (searchQuery?: string) => {
   try {
     await connectToDatabase();
-    let products;
 
+    // Define an empty conditions object
+    const conditions: any = {};
+
+    // If there's a search query
     if (searchQuery && searchQuery.trim() !== "") {
+      // Create a case-insensitive regex pattern from the search query
       const regex = new RegExp(searchQuery, "i");
-      products = await populateProduct(Product.find({ title: { $regex: regex } }));
-    } else {
-      products = await populateProduct(Product.find());
+      
+      // Find categories matching the search query
+      const categories = await Category.find({ name: { $regex: regex } });
+      
+      // Extract category IDs from the found categories
+      const categoryIds = categories.map((category) => category._id);
+
+      // Add conditions for title matching regex or category matching IDs
+      conditions.$or = [
+        { title: { $regex: regex } },
+        { category: { $in: categoryIds } }
+      ];
     }
+
+    // Use conditions to filter products
+    const products = await populateProduct(
+      Object.keys(conditions).length > 0 ? Product.find(conditions) : Product.find()
+    );
 
     return products;
   } catch (error: any) {
     handleError(error);
   }
 };
+
 
 export const deleteProduct = async ({
   productId,
@@ -216,7 +236,7 @@ export const getRelatedProductsByCategory = async ({
       $and: [{ category: categoryId }, { _id: { $ne: productId } }],
     };
 
-    const Products = Product.find(conditions);
+    const Products = await populateProduct(Product.find(conditions));
 
     return Products;
   } catch (error) {

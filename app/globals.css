@@ -207,7 +207,7 @@
   }
 
   .input-field {
-    @apply shadow-md  hover:shadow-sm h-[54px] focus-visible:ring-offset-0 placeholder:text-dark-gray rounded-full p-regular-16 px-4 py-3 border-none focus-visible:ring-transparent  transition-all  duration-150 !important;
+    @apply shadow-md  hover:shadow-sm h-[54px] focus-visible:ring-offset-0 placeholder:text-dark-gray rounded-full p-regular-16 px-4 py-3 border-none focus-visible:ring-transparent  focus:outline-none transition-all  duration-150 !important;
   }
 
   .textarea {
@@ -218,6 +218,9 @@
 @layer components {
   .card {
     @apply w-[350px]  md:max-w-[450px]  p-4 overflow-hidden    bg-light relative shadow-lg hover:shadow-sm transition-all  rounded-xl;
+  }
+  .card_wrapper {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5
   }
 }
 

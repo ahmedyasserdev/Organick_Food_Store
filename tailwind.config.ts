@@ -15,6 +15,7 @@ const config = withUt({
     extend: {
       backgroundImage : {
         shop_single : "url('/shop-single.svg')",
+        shop: "url('/shop-banner.svg')",
         hero_bg : "url('/hero-bg.svg')",
         hero_image: "url('/hero-image.svg')",
         fruits: "url('/fruits.svg')",
