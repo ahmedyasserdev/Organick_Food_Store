@@ -18,6 +18,7 @@ const config = withUt({
         shop: "url('/shop-banner.svg')",
         hero_bg : "url('/hero-bg.svg')",
         hero_image: "url('/hero-image.svg')",
+        about_banner: "url('/about-banner.svg')",
         fruits: "url('/fruits.svg')",
       },
       colors: {

@@ -1,16 +1,39 @@
+'use client'
+import { useEffect, useState } from 'react';
 import { IProduct } from "@/lib/database/models/product.model";
 import { getUser } from "@/lib/actions/user.actions";
-import { currentUser } from "@clerk/nextjs";
+import { currentUser, useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import { calculateFinalPrice } from "@/lib/utils";
 import DeleteConfirmation from "../shared/DeleteConfirmation";
-const ProductCard = async ({ product }: { product: IProduct }) => {
-  const user = await currentUser();
-  const userInfo = await getUser(user?.id);
-  const isCreator = userInfo?._id.toString() === product.creator._id.toString();
-  const finalPrice = calculateFinalPrice(product.price, product.discount);
+import Loader from '@/app/loading';
 
+const ProductCard = ({ product }: { product: IProduct }) => {
+  const [isCreator, setIsCreator] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
+  const { user } = useUser();
+  const fetchUserInfo = async () => {
+    try {
+      const userInfo = await getUser(user?.id);
+      setIsCreator(userInfo?._id.toString() === product.creator._id.toString());
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching user information:", error);
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+  
+
+    fetchUserInfo();
+  }, []);
+
+  if (loading) {
+    return <Loader/>;
+  }
+
+  const finalPrice = calculateFinalPrice(product.price, product.discount);
 
   return (
     <div className="card">

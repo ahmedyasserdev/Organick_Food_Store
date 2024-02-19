@@ -5,6 +5,7 @@ import { calculateFinalPrice } from "@/lib/utils";
 import AddToCart from "@/components/shared/AddToCart";
 import { IProduct } from "@/lib/database/models/product.model";
 import ProductCard from "@/components/cards/ProductCard";
+import Banner from "@/components/shared/Banner";
 const page = async ({ params: { id } }: { params: { id: string } }) => {
   const product = await getProductById(id);
   const finalPrice : number = calculateFinalPrice(product.price, product.discount);
@@ -13,7 +14,7 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
   return (
   <>
       <section >
-        <div className="bg-shop_single bg-cover h-[400px] w-full bg-center  mt-4 bg-no-repeat flex-center  mb-8 md:mb-10" />
+        <Banner bgImage={"shop_single"}/>
     
         <div className="flex flex-col   md:gap-10 gap-5   md:flex-row md:container  py-5 md:py-8">
           {/* right section */}

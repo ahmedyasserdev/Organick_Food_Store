@@ -17,7 +17,7 @@ export const headerLinks = [
     },
     {
       label: 'Profile',
-      route: '/profle',
+      route: '/profile',
     },
     {
       label: 'Services',

@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
+import { getProducts } from "./actions/product.actions";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -43,3 +44,14 @@ export const handleError = (error: unknown) => {
   console.error(error)
   throw new Error(typeof error === 'string' ? error : JSON.stringify(error))
 }
+
+
+
+export  const fetchProducts = async ({setProducts , searchQuery} : {setProducts : any , searchQuery : any} ) => {
+  try {
+    const fetchedProducts = await getProducts(searchQuery);
+    setProducts(fetchedProducts);
+  } catch (error) {
+    console.error('Error fetching products:', error);
+  }
+};

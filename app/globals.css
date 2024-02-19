@@ -217,10 +217,10 @@
 
 @layer components {
   .card {
-    @apply w-[350px]  md:max-w-[450px]  p-4 overflow-hidden    bg-light relative shadow-lg hover:shadow-sm transition-all  rounded-xl;
+    @apply  w-[350px]  h-fit  md:max-w-[450px]  p-4 pb-5 overflow-hidden    bg-light relative shadow-lg hover:shadow-sm transition-all  rounded-xl;
   }
   .card_wrapper {
-    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5
+    @apply flex flex-wrap max-md:justify-center items-start  gap-5 
   }
 }
 
@@ -252,3 +252,5 @@
 .cl-formButtonPrimary:active {
   opacity: 0.9;
 }
+
+

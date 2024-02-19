@@ -24,6 +24,7 @@ import { useUploadThing } from "@/lib/uploadthing";
 import { handleError } from "@/lib/utils";
 import { createNewProduct, updateProduct } from "@/lib/actions/product.actions";
 import { usePathname, useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 function ProductForm({ type, product, userId , productId }: ProductFormProps) {
   const [files, setFiles] = useState<File[]>([]);
@@ -58,10 +59,14 @@ function ProductForm({ type, product, userId , productId }: ProductFormProps) {
           userId,
         });
         if (newProduct) {
+          toast.success("Product Created Successfully")
           form.reset();
           router.push(`/product/${newProduct._id}`);
+
         }
       } catch (error) {
+        toast.error("Something Went Wrong")
+
         console.log(error);
       }
     }
@@ -83,10 +88,14 @@ function ProductForm({ type, product, userId , productId }: ProductFormProps) {
 
 
         if (updatedProduct) {
+          toast.success("Product Updated Successfully")
+
           form.reset();
           router.push(`/product/${updatedProduct._id}`);
         }
       } catch (error) {
+        toast.error("Something Went Wrong")
+
         console.log(error);
       }
     }

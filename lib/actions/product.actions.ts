@@ -140,38 +140,30 @@ export const getProducts = async (searchQuery?: string) => {
   try {
     await connectToDatabase();
 
-    // Define an empty conditions object
-    const conditions: any = {};
+    let conditions: any = {};
 
-    // If there's a search query
     if (searchQuery && searchQuery.trim() !== "") {
-      // Create a case-insensitive regex pattern from the search query
       const regex = new RegExp(searchQuery, "i");
-      
+
       // Find categories matching the search query
       const categories = await Category.find({ name: { $regex: regex } });
-      
+
       // Extract category IDs from the found categories
       const categoryIds = categories.map((category) => category._id);
 
       // Add conditions for title matching regex or category matching IDs
-      conditions.$or = [
-        { title: { $regex: regex } },
-        { category: { $in: categoryIds } }
-      ];
+      conditions = {
+        $or: [{ title: { $regex: regex } }, { category: { $in: categoryIds } }],
+      };
     }
 
-    // Use conditions to filter products
-    const products = await populateProduct(
-      Object.keys(conditions).length > 0 ? Product.find(conditions) : Product.find()
-    );
+    const products = await populateProduct(Product.find(conditions));
 
-    return products;
+    return JSON.parse(JSON.stringify(products));
   } catch (error: any) {
     handleError(error);
   }
 };
-
 
 export const deleteProduct = async ({
   productId,
@@ -242,4 +234,31 @@ export const getRelatedProductsByCategory = async ({
   } catch (error) {
     handleError(error);
   }
+};
+
+export const getUserSellingProducts = async (userId: string | undefined) => {
+  try {
+    await connectToDatabase();
+
+    const user = await User.findOne({ clerkId: userId }).populate({
+      path: "sellingProducts",
+      model: Product,
+      populate : [
+        {
+          path: "creator",
+          model: User,
+          select: "_id firstName lastName",
+        },
+        {
+          path: "category",
+          model: Category,
+          select: "_id name",
+        },
+      ]
+    });
+
+    const sellingProducts = user?.sellingProducts;
+
+    return JSON.parse(JSON.stringify(sellingProducts));
+  } catch (error) {}
 };
