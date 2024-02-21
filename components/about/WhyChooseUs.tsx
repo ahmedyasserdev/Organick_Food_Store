@@ -20,7 +20,7 @@ const WhyChooseUs = () => {
              <div>
                <p className="text-dark-gray leading-[1.6]  p-regular-24 ">
                  Simply dummy text of the printing and typesetting industry. Lorem
-                 had ceased to been the industry's standard the 1500s, when an
+                 had ceased to been the industry&apos;s standard the 1500s, when an
                  unknown
                </p>
              </div>
