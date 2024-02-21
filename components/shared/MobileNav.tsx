@@ -12,7 +12,7 @@ import NavItems from "./NavItems"
 import { Menu } from "lucide-react"
 const MobileNav = () => {
 return (
- <nav className = "md:hidden" >
+ <nav className = "md:hidden bg-white" >
    <Sheet>
    <SheetTrigger className="align-middle" >
       <Menu />

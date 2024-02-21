@@ -212,7 +212,8 @@
 
   .textarea {
     @apply shadow-md   hover:shadow-sm flex flex-1 placeholder:text-dark-gray p-regular-16 px-5 py-3 border-none focus-visible:ring-transparent  transition-all  duration-150  !important;
-  }
+  } 
+  
 }
 
 @layer components {
@@ -221,6 +222,9 @@
   }
   .card_wrapper {
     @apply flex flex-wrap max-md:justify-center items-start  gap-5 
+  }
+  .layout {
+    @apply bg-light/40 h-full
   }
 }
 
@@ -252,5 +256,7 @@
 .cl-formButtonPrimary:active {
   opacity: 0.9;
 }
+
+
 
 

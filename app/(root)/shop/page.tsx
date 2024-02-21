@@ -5,7 +5,6 @@ import SearchBar from '@/components/shared/SearchBar';
 import { getProducts } from '@/lib/actions/product.actions';
 import { IProduct } from '@/lib/database/models/product.model';
 import { fetchProducts } from '@/lib/utils';
-import Banner from '@/components/shared/Banner';
 
 const Page = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -18,7 +17,7 @@ const Page = () => {
 
   return (
     <section>
-      <Banner bgImage="shop"  />
+      <div className="bg-shop bg-cover h-[400px] w-full bg-center mt-4 bg-no-repeat flex-center mb-8 md:mb-10" />
       <div className="container">
         <SearchBar  setSearchQuery={setSearchQuery} />
 

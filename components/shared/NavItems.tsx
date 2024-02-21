@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 const NavItems = () => {
     const pathname = usePathname()
   return (
-    <ul className="md:flex-between flex w-full flex-col items-start md:flex-row gap-5 " >
+    <ul className="lg:flex-between flex w-full flex-col items-start  md:flex-wrap md:flex-row gap-5 " >
         {headerLinks.map((link) => {
             const isActive = pathname === link.route;
            return(

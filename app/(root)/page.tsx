@@ -1,6 +1,8 @@
-import AboutUs from "@/components/shared/AboutUs";
-import Hero from "@/components/shared/Hero";
-import OurProducts from "@/components/shared/OurProducts";
+import AboutUs from "@/components/home/AboutUs";
+import EcoFriendly from "@/components/home/EcoFriendly";
+import Hero from "@/components/home/Hero";
+import OurProducts from "@/components/home/OurProducts";
+import Testimonials from "@/components/home/Testimonials";
 
 export default function Home() {
   return (
@@ -9,6 +11,8 @@ export default function Home() {
 <Hero/>
     <AboutUs />
     <OurProducts />
+    <Testimonials />
+    <EcoFriendly />
     </>
 
   );
