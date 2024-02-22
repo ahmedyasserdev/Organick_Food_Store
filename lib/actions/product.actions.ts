@@ -57,7 +57,7 @@ export const getProductById = async (id: string) => {
     const product = await populateProduct(Product.findById(id));
     if (!product) throw new Error("Product not found");
 
-    return JSON.parse(JSON.stringify(product));
+    return product;
   } catch (error: any) {
     handleError(error);
   }

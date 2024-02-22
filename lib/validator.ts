@@ -11,3 +11,11 @@ export const prodcutFormSchema = z.object({
     image : z.string(),
     discount  : z.string()
   })
+
+
+  export const reviewFormSchema = z.object({
+    reviewText: z.string().min(2, {
+    message: "Review must be at least 2 characters.",
+  }),
+})
+ 

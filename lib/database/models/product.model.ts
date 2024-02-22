@@ -8,6 +8,7 @@ export interface IProduct extends Document {
   category: { _id: string, name: string }
   discount?: string;
   creator : { _id: string, firstName: string, lastName: string };
+  reviews : { _id: string, text: string  , creator : { _id: string, firstName: string, lastName: string , image : string }  };
 }
 
 const ProductSchema = new Schema<IProduct>({
@@ -22,6 +23,9 @@ const ProductSchema = new Schema<IProduct>({
   discount: { type: String },
 
   creator :{ type: Schema.Types.ObjectId, ref: 'User' },
+  reviews :[
+    { type: Schema.Types.ObjectId, ref: 'Review' }
+  ],
 });
 
 const Product = models.Product || model<IProduct>('Product', ProductSchema);

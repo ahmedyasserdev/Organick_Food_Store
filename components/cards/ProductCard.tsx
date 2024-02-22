@@ -12,7 +12,7 @@ import Loader from '@/app/loading';
 const ProductCard = ({ product }: { product: IProduct }) => {
   const [isCreator, setIsCreator] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
-  const { user } = useUser();
+  const { user , isLoaded } = useUser();
   const fetchUserInfo = async () => {
     try {
       const userInfo = await getUser(user?.id);
@@ -29,7 +29,7 @@ const ProductCard = ({ product }: { product: IProduct }) => {
     fetchUserInfo();
   }, []);
 
-  if (loading) {
+  if (loading || !isLoaded ) {
     return <Loader/>;
   }
 

@@ -58,3 +58,19 @@ export type GetRelatedProductsByCategoryParams = {
   categoryId : string ;
   productId : string ;
 }
+
+export type LogoProps = {
+  isFooter : boolean
+}
+
+
+export type CreateNewReviewParams = {
+  text : string ;
+  productId : string;
+  userId : string | undefined;
+}
+
+export type ReviewFormProps = {
+  productId : string;
+  userId : string | undefined;
+}

@@ -91,3 +91,22 @@ export const ecoFriendly = [
     description: "Sed ut perspiciatis unde omnis iste natus error sit voluptat accusantium doloremque laudantium. Sed ut perspiciatis."
   }
 ];
+
+export const footer_socials = [
+  {
+    icon : '/instagram.svg',
+    title : "instagram",
+  },
+  {
+    icon : '/facebook.svg',
+    title : "facebook",
+  },
+  {
+    icon : '/twitter.svg',
+    title : "twitter",
+  },
+  {
+    icon : '/pintrest.svg',
+    title : "pintrest",
+  },
+]
