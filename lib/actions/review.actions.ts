@@ -1,6 +1,6 @@
 "use server";
 
-import { CreateNewReviewParams, DeleteProductProps, UpdateReviewParams, deleteProductReviewParams } from "@/types";
+import { CreateNewReviewParams, DeleteProductProps, UpdateReviewParams, deleteProductReviewParams, reviewType } from "@/types";
 import { connectToDatabase } from "../database/mongoose";
 import { handleError } from "../utils";
 import Review from "../database/models/reviews.model";
@@ -103,16 +103,13 @@ export const deleteProductReview = async ({ reviewId, productId , path } : delet
   }
 }
 
-const updateProductReviews = async (productId : string , reviewId : string) => {
+const updateProductReviews = async (productId: string, reviewId: string) => {
   try {
-    
     const product = await Product.findById(productId);
 
     if (product) {
-
-      
-
-      product.reviews = product.reviews.slice(reviewId , 1)
+      // Filter out the review with the specified reviewId
+      product.reviews = product.reviews.filter((review  : reviewType) => review._id !== reviewId);
 
       await product.save();
     } else {
@@ -121,8 +118,7 @@ const updateProductReviews = async (productId : string , reviewId : string) => {
   } catch (error) {
     console.error('Error updating product reviews:', error);
   }
-}
-
+};
 
 export const updateReview = async ({reviewId , reviewText , path } : UpdateReviewParams ) => {
   try {

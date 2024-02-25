@@ -25,6 +25,7 @@ const config = withUt({
         why_choose_use : "url('/why-choose-us.svg')",
         green_land :   "url('/green-land.svg')",
         news :   "url('/news-letters.svg')",
+        notFound : "url('/not-found.svg')",
       },
       colors: {
         border: "hsl(var(--border))",
