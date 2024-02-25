@@ -28,9 +28,6 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
 
   const productReviews = await getProductReviews(id)
 
-  console.log(productReviews)
-  // console.log('###################################################')
-  // console.log(product.reviews.populatw)
 
 
 
@@ -82,11 +79,11 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
               {product.description}
             </p>
 
-            {/* <AddToCart
+            <AddToCart
               product={product}
               userId={product.creator?._id}
               finalPrice={finalPrice}
-            /> */}
+            />
           </div>
         </div>
       </section>
@@ -95,7 +92,7 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
 <section>
   
        <div className = "container " >
-             <ReviewForm  productId={product?._id.toString()} userId={userInfo._id.toString()} />
+             <ReviewForm  reviews= {productReviews}  productId={product?._id.toString()} userId={userInfo._id.toString()} />
        </div>
 </section>
 

@@ -55,3 +55,12 @@ export  const fetchProducts = async ({setProducts , searchQuery} : {setProducts 
     console.error('Error fetching products:', error);
   }
 };
+
+
+export const formatCreatedAt = (createdAt : any) => {
+  const date = new Date(createdAt);
+
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', timeZoneName: 'short' };
+  //@ts-ignore
+  return date.toLocaleDateString('en-US', options);
+};

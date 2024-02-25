@@ -11,14 +11,14 @@ import {
 const Footer = () => {
   return (
     <>
-      <section className="py-8">
-        <div className="w-[95%] mx-auto bg-news bg-cover bg-center bg-no-repeat rounded-3xl h-[250px] flex-between  px-3 md:px-4">
+      <section className="py-8 hidden lg:block">
+        <div className="w-[95%] mx-auto bg-news bg-cover bg-center bg-no-repeat rounded-3xl h-[250px]   flex-between flex-col md:flex-row px-3 md:px-4">
           <h4 className=" p-bold-20 md:h3-bold text-light  pl-6">
             Subscribe to <br />
             our Newsletter
           </h4>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap ">
             <input
               type="email"
               placeholder="Email Adress"

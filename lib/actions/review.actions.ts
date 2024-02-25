@@ -1,11 +1,12 @@
 "use server";
 
-import { CreateNewReviewParams } from "@/types";
+import { CreateNewReviewParams, DeleteProductProps, UpdateReviewParams, deleteProductReviewParams } from "@/types";
 import { connectToDatabase } from "../database/mongoose";
 import { handleError } from "../utils";
 import Review from "../database/models/reviews.model";
 import Product from "../database/models/product.model";
 import User from "../database/models/user.model";
+import { revalidatePath } from "next/cache";
 
 
 const populateReview = (query: any) => {
@@ -24,6 +25,7 @@ export const createNewReview = async ({
   text,
   userId,
   productId,
+  path
 }: CreateNewReviewParams) => {
   try {
     await connectToDatabase();
@@ -39,6 +41,9 @@ export const createNewReview = async ({
       { $push: { reviews: newReview } },
       { upsert: true }
     );
+
+
+    revalidatePath(path)
 
     return JSON.parse(JSON.stringify(newReview));
   } catch (error: any) {
@@ -58,24 +63,80 @@ export const getProductReviews = async (id: string) => {
     const product = await Product.findById(id).populate({
       path: "reviews",
       model: Review,
-      populate : [
+      options: { sort: { createdAt: -1 } },
+      populate: [
         {
           path: "creator",
           model: User,
-          select: "_id firstName lastName image",
+          select: "_id firstName lastName photo",
         },
-      
-      ]
-    });
+      ],
+    })
+
     if (!product) {
       throw new Error("Product not found");
     }
 
     const reviews = product.reviews;
 
-    return reviews;
+    return JSON.parse(JSON.stringify(reviews));
   } catch (error: any) {
     console.error(error);
     throw new Error("Error fetching product reviews");
   }
 };
+
+
+
+export const deleteProductReview = async ({ reviewId, productId , path } : deleteProductReviewParams ) => {
+  try {
+    await connectToDatabase();
+
+    await Review.findByIdAndDelete(reviewId);
+
+    await updateProductReviews(productId , reviewId );
+
+    revalidatePath(path)
+
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+const updateProductReviews = async (productId : string , reviewId : string) => {
+  try {
+    
+    const product = await Product.findById(productId);
+
+    if (product) {
+
+      
+
+      product.reviews = product.reviews.slice(reviewId , 1)
+
+      await product.save();
+    } else {
+      console.log('Product not found');
+    }
+  } catch (error) {
+    console.error('Error updating product reviews:', error);
+  }
+}
+
+
+export const updateReview = async ({reviewId , reviewText , path } : UpdateReviewParams ) => {
+  try {
+
+  await connectToDatabase()
+   const reviewToUpdate =  await Review.findByIdAndUpdate(reviewId, {
+    text : reviewText
+   })
+
+   revalidatePath(path)
+
+    
+   return JSON.parse(JSON.stringify(reviewToUpdate))
+  } catch (error) {
+    console.error(error);
+  }
+}
