@@ -61,52 +61,96 @@ export const features = [
 export const quality = [
   {
     title: "Organic",
-    value : "100%",
+    value: "100%",
   },
   {
     title: "Active Product",
-    value : "285",
+    value: "285",
   },
   {
     title: "Organic Orchads",
-    value : '350+ ',
+    value: "350+ ",
   },
   {
     title: "Years of Farming",
-    value : "25+",
+    value: "25+",
   },
 ];
 
 export const ecoFriendly = [
   {
     title: "Start with Our Company First",
-    description: "Sed ut perspiciatis unde omnis iste natus error sit voluptat accusantium doloremque laudantium. Sed ut perspiciatis."
+    description:
+      "Sed ut perspiciatis unde omnis iste natus error sit voluptat accusantium doloremque laudantium. Sed ut perspiciatis.",
   },
   {
     title: "Learn How to Grow Yourself",
-    description: "Sed ut perspiciatis unde omnis iste natus error sit voluptat accusantium doloremque laudantium. Sed ut perspiciatis."
+    description:
+      "Sed ut perspiciatis unde omnis iste natus error sit voluptat accusantium doloremque laudantium. Sed ut perspiciatis.",
   },
   {
     title: "Farming Strategies of Today",
-    description: "Sed ut perspiciatis unde omnis iste natus error sit voluptat accusantium doloremque laudantium. Sed ut perspiciatis."
-  }
+    description:
+      "Sed ut perspiciatis unde omnis iste natus error sit voluptat accusantium doloremque laudantium. Sed ut perspiciatis.",
+  },
 ];
 
 export const footer_socials = [
   {
-    icon : '/instagram.svg',
-    title : "instagram",
+    icon: "/instagram.svg",
+    title: "instagram",
   },
   {
-    icon : '/facebook.svg',
-    title : "facebook",
+    icon: "/facebook.svg",
+    title: "facebook",
   },
   {
-    icon : '/twitter.svg',
-    title : "twitter",
+    icon: "/twitter.svg",
+    title: "twitter",
   },
   {
-    icon : '/pintrest.svg',
-    title : "pintrest",
+    icon: "/pintrest.svg",
+    title: "pintrest",
   },
-]
+];
+
+export const services_one = [
+  {
+    icon: "/milk.svg",
+    title: "Dairy Products ",
+    description:
+      "Sed ut perspiciatis unde omnis iste natus error sit voluptat accusantium doloremqlaudantium. Sed ut perspiciatis",
+  },
+  {
+    icon: "/store.svg",
+    title: "Store Service",
+    description:
+      "Sed ut perspiciatis unde omnis iste natus error sit voluptat accusantium doloremqlaudantium. Sed ut perspiciatis",
+  },
+  {
+    icon: "/truck.svg",
+    title: "Delivery Services",
+    description:
+      "Sed ut perspiciatis unde omnis iste natus error sit voluptat accusantium doloremqlaudantium. Sed ut perspiciatis",
+  },
+];
+export const services_Two = [
+  {
+    icon: "/leave-green.svg",
+    title: "Agricultural Services",
+    description:
+      "Sed ut perspiciatis unde omnis iste natus error sit voluptat accusantium doloremqlaudantium. Sed ut perspiciatis",
+  },
+  {
+    icon: "/organic.svg",
+    title: "Organic Products",
+    description:
+      "Sed ut perspiciatis unde omnis iste natus error sit voluptat accusantium doloremqlaudantium. Sed ut perspiciatis",
+  },
+  {
+    icon: "/fresh.svg",
+    title: "Fresh Vegetables",
+    description:
+      "Sed ut perspiciatis unde omnis iste natus error sit voluptat accusantium doloremqlaudantium. Sed ut perspiciatis",
+  },
+];

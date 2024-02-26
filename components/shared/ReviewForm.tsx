@@ -70,6 +70,8 @@ const ReviewForm = ({ productId, userId, reviews }: ReviewFormProps) => {
        
      
      setType("Create");
+     form.reset();
+
         setEditingReview(null);
        //@ts-ignore
         toast.promise(updateReview, {
@@ -78,7 +80,6 @@ const ReviewForm = ({ productId, userId, reviews }: ReviewFormProps) => {
           error: "Something went wrong. Please try again.",
         });
      
-        form.reset();
       }
     } catch (error) {
       console.error(error);

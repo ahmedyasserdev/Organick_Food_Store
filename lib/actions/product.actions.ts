@@ -92,7 +92,7 @@ export const getCartProducts = async (id: string | undefined) => {
       return null; // or throw an error
     }
 
-    return userCart.cart;
+    return JSON.parse(JSON.stringify(userCart.cart));
   } catch (error) {
     console.error("Error fetching user cart:", error);
     throw error;

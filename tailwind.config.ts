@@ -26,6 +26,8 @@ const config = withUt({
         green_land :   "url('/green-land.svg')",
         news :   "url('/news-letters.svg')",
         notFound : "url('/not-found.svg')",
+        services : "url('/services-banner.svg')",
+        organic_only : "url('/organic-only.svg')",
       },
       colors: {
         border: "hsl(var(--border))",
