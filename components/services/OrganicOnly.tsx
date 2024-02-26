@@ -9,7 +9,7 @@ const OrganicOnly = () => {
           </h2>
           <p className="p-regular-16 text-dark-gray max-md:text-center ">
             Simply dummy text of the printing and typesetting industry. Lorem
-            had ceased to been the industry's standard dummy text ever since the
+            had ceased to been the industry&apos; standard dummy text ever since the
           </p>
         </div>
       </div>
