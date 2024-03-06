@@ -11,7 +11,6 @@ import {
 } from "@/types";
 import Category from "../database/models/category.model";
 import { revalidatePath } from "next/cache";
-import toast from "react-hot-toast";
 
 const populateProduct = (query: any) => {
   return query
@@ -230,7 +229,7 @@ export const getRelatedProductsByCategory = async ({
 
     const Products = await populateProduct(Product.find(conditions));
 
-    return Products;
+    return JSON.parse(JSON.stringify(Products));
   } catch (error) {
     handleError(error);
   }
@@ -260,5 +259,7 @@ export const getUserSellingProducts = async (userId: string | undefined) => {
     const sellingProducts = user?.sellingProducts;
 
     return JSON.parse(JSON.stringify(sellingProducts));
-  } catch (error) {}
+  } catch (error) {
+    console.log(error)
+  }
 };

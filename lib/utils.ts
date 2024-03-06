@@ -60,7 +60,7 @@ export  const fetchProducts = async ({setProducts , searchQuery} : {setProducts 
 export const formatCreatedAt = (createdAt : any) => {
   const date = new Date(createdAt);
 
-  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', timeZoneName: 'short' };
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', };
   //@ts-ignore
   return date.toLocaleDateString('en-US', options);
 };

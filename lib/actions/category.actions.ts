@@ -14,7 +14,7 @@ export const createNewCategory= async ({categoryName}  : {categoryName :  string
             })
 
 
-            return newCategory
+            return JSON.parse(JSON.stringify(newCategory))
 
     } catch (error : any) {
             handleError(error)

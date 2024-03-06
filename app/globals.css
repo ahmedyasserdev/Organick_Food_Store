@@ -207,7 +207,7 @@
   }
 
   .input-field {
-    @apply shadow-md  hover:shadow-sm h-[54px] focus-visible:ring-offset-0 placeholder:text-dark-gray rounded-full p-regular-16 px-4 py-3 border-none focus-visible:ring-transparent  focus:outline-none transition-all  duration-150 !important;
+    @apply shadow-md w-full hover:shadow-sm h-[54px] focus-visible:ring-offset-0 placeholder:text-dark-gray rounded-full p-regular-16 px-4 py-3 border-none focus-visible:ring-transparent  focus:outline-none transition-all  duration-150 !important;
   }
 
   .textarea {

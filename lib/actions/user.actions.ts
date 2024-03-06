@@ -30,7 +30,7 @@ export const createOrUpdateUser = async (
     );
 
     await user.save();
-    return user;
+    return JSON.parse(JSON.stringify(user));
   } catch (error : any ) {
     handleError(error)
   }

@@ -1,24 +1,37 @@
-import mongoose from "mongoose";
+import mongoose, { Mongoose } from 'mongoose';
 
-let isConnected = false; // Track connection status
-const MONGODB_URI = process.env.MONGODB_URI!
+const MONGODB_URI = process.env.MONGODB_URI;
+
+interface MongooseConnection {
+  conn: Mongoose | null;
+  promise: Promise<Mongoose> | null;
+}
+
+let cached: MongooseConnection = (global as any).mongoose;
+
+if (!cached) {
+  cached = (global as any).mongoose = { 
+    conn: null, 
+    promise: null 
+  };
+}
+
 export const connectToDatabase = async () => {
-  mongoose.set("strictQuery", true);
+  if (cached.conn) return cached.conn;
 
-  if (isConnected) {
-    console.log("MongoDB is already connected");
-    return;
-  }
+  if (!MONGODB_URI) throw new Error('Missing MONGODB_URI');
 
-  try {
-    await mongoose.connect(MONGODB_URI, {
-      dbName: "organick",
+  cached.promise = 
+    cached.promise || 
+    mongoose.connect(MONGODB_URI, { 
+      dbName: 'organick', 
+      bufferCommands: false 
     });
 
-    isConnected = true;
+  cached.conn = await cached.promise;
 
-    console.log("MongoDB is connected");
-  } catch (error) {
-    console.log(error);
-  }
+  // Log a message indicating successful connection
+  console.log('Connected to MongoDB');
+
+  return cached.conn;
 };

@@ -25,6 +25,7 @@ import { handleError } from "@/lib/utils";
 import { createNewProduct, updateProduct } from "@/lib/actions/product.actions";
 import { usePathname, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { CustomField } from "./CustomField";
 
 function ProductForm({ type, product, userId , productId }: ProductFormProps) {
   const [files, setFiles] = useState<File[]>([]);
@@ -103,139 +104,92 @@ function ProductForm({ type, product, userId , productId }: ProductFormProps) {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-5"
+    <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5 w-full">
+      <div className="flex flex-col gap-5 w-full">
+        <CustomField
+          control={form.control}
+          name="title"
+          formLabel="Product title"
+          render={({ field }) => (
+            <Input placeholder="Product title" {...field} className="input-field " />
+          )}
+        />
+        <CustomField
+          control={form.control}
+          name="categoryId"
+          formLabel="Category"
+          render={({ field }) => (
+            <Dropdown onChangeHandler={field.onChange} value={field.value} className="w-full" />
+          )}
+        />
+      </div>
+  
+      <div className="flex flex-col gap-5">
+        <CustomField
+          control={form.control}
+          name="description"
+          formLabel="Product description"
+          render={({ field }) => (
+            <Textarea placeholder="Product description" {...field} className="textarea " />
+          )}
+        />
+        <CustomField
+          control={form.control}
+          name="image"
+          formLabel="Image"
+          render={({ field }) => (
+            <FileUploader onFieldChange={field.onChange} setFiles={setFiles} imageUrl={field.value} className="w-full" />
+          )}
+        />
+      </div>
+  
+      <div className="flex flex-col gap-5">
+        <CustomField
+          control={form.control}
+          name="price"
+          formLabel="Price"
+          render={({ field }) => (
+            <Input
+              id="price"
+              type="number"
+              className="input-field w-full"
+              placeholder="Price"
+              {...field}
+            />
+          )}
+        />
+        <CustomField
+          control={form.control}
+          name="discount"
+          formLabel="Discount (%) optional"
+          render={({ field }) => (
+            <Input
+              id="discount"
+              type="text"
+              className="input-field w-full"
+              placeholder="Discount"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              {...field}
+            />
+          )}
+        />
+      </div>
+  
+      <Button
+        type="submit"
+        className="rounded-full p-bold-24 tracking-[1px] w-full h-[54px]"
+        disabled={form.formState.isSubmitting}
       >
-        <div className="flex flex-col gap-5 md:flex-row">
-          <FormField
-            control={form.control}
-            name="title"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormControl>
-                  <Input
-                    placeholder="Product title"
-                    {...field}
-                    className="input-field"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="categoryId"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormControl>
-                  <Dropdown
-                    onChangeHandler={field.onChange}
-                    value={field.value}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-
-        <div className="flex flex-col gap-5 md:flex-row">
-          <FormField
-            control={form.control}
-            name="description"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormControl className="h-72">
-                  <Textarea
-                    className="textarea"
-                    placeholder="Product description"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="image"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormControl>
-                  <FileUploader
-                    onFieldChange={field.onChange}
-                    setFiles={setFiles}
-                    imageUrl={field.value}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-
-        <div className="flex flex-col gap-5 md:flex-row">
-          <FormField
-            control={form.control}
-            name="price"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <label htmlFor="price" className="input-label">
-                  Price
-                </label>
-                <FormControl className="h-72">
-                  <Input
-                    id="price"
-                    type="number"
-                    className="input-field"
-                    placeholder="Price"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="discount"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <label htmlFor="discount" className="input-label">
-                  Discount (%) optional{" "}
-                </label>
-                <FormControl>
-                  <Input
-                    id="discount"
-                    type="text"
-                    className="input-field"
-                    placeholder="Discount"
-                    inputMode="numeric"
-                    pattern="[0-9]*"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-
-        <Button
-          type="submit"
-          className="rounded-full   p-bold-24 tracking-[1px]  w-full h-[54px]"
-          disabled={form.formState.isSubmitting}
-        >
-          {form.formState.isSubmitting
-            ? type === "Create"
-              ? "Creating..."
-              : "Updating..."
-            : `${type} Product `}
-        </Button>
-      </form>
-    </Form>
+        {form.formState.isSubmitting
+          ? type === "Create"
+            ? "Creating..."
+            : "Updating..."
+          : `${type} Product `}
+      </Button>
+    </form>
+  </Form>
+  
   );
 }
 
